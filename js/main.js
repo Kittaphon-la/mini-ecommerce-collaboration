@@ -28,11 +28,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  searchInput.addEventListener('keyup', () => {
-    const searchTerm = searchInput.value.toLowerCase();
-    const filtered = allProducts.filter(product =>
-      product.name.toLowerCase().includes(searchTerm)
-    );
-    displayProducts(filtered);
-  });
+ searchInput.addEventListener('keyup', () => {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+
+  // ถ้าค่าว่างเปล่า แสดงสินค้าทั้งหมด
+  if (searchTerm === '') {
+    displayProducts(allProducts);
+    return;
+  }
+
+  // ค้นหาสินค้าตามคำค้น
+  const filtered = allProducts.filter(product =>
+    product.name.toLowerCase().includes(searchTerm)
+  );
+
+  displayProducts(filtered);
 });
